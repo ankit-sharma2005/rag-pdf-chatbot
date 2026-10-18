@@ -1,0 +1,9 @@
+django>=5.0,<6.0
+python-dotenv
+pypdf
+chromadb
+langchain-core
+langchain-community
+langchain-text-splitters
+langchain-chroma
+langchain-google-genai

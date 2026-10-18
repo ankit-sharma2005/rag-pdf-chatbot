@@ -1,0 +1,74 @@
+{% load static %}<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token }}">
+  <title>Ask your books</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;0,7..72,700;1,7..72,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'rag/css/style.css' %}">
+</head>
+<body data-max-mb="{{ max_mb }}">
+  <div class="app">
+
+    <aside class="shelf" id="shelf" aria-label="Your books">
+      <div class="shelf-head">
+        <h1>Ask your books</h1>
+        <button type="button" class="shelf-close" id="close-shelf" aria-label="Close book list">Close</button>
+      </div>
+
+      <form id="upload-form" class="upload" novalidate>
+        <input type="file" id="file-input" accept="application/pdf,.pdf" hidden>
+        <label for="file-input" class="drop" id="drop" tabindex="0">
+          <span class="drop-title">Add a book</span>
+          <span class="drop-hint">Drop a PDF here or choose a file. Up to {{ max_mb }} MB.</span>
+        </label>
+        <div class="upload-status" id="upload-status" hidden>
+          <p id="upload-text"></p>
+          <div class="bar" aria-hidden="true"></div>
+        </div>
+      </form>
+
+      <div class="shelf-list-head">
+        <h2>Your books</h2>
+        <button type="button" class="link-btn" id="toggle-all" hidden>Select none</button>
+      </div>
+
+      <ul class="books" id="book-list"></ul>
+      <p class="shelf-empty" id="shelf-empty" hidden>No books yet. Add a PDF to start asking questions.</p>
+    </aside>
+
+    <div class="backdrop" id="backdrop" hidden></div>
+
+    <main class="desk">
+      <header class="desk-bar">
+        <button type="button" class="open-shelf" id="open-shelf">Books</button>
+        <p class="scope" id="scope-note">Add a book to begin</p>
+      </header>
+
+      <div class="thread" id="thread" aria-live="polite">
+        <section class="welcome" id="welcome">
+          <h2 id="welcome-title">Put a book on the shelf</h2>
+          <p id="welcome-text">Upload a PDF on the left. Answers come only from your books, and each one shows the pages it used.</p>
+          <div class="starters" id="starters" hidden>
+            <button type="button" class="starter">Summarize the main ideas</button>
+            <button type="button" class="starter">List the key terms and what they mean</button>
+            <button type="button" class="starter">What are the most important takeaways?</button>
+          </div>
+        </section>
+      </div>
+
+      <form class="ask" id="ask-form">
+        <label for="question" class="sr-only">Your question</label>
+        <textarea id="question" rows="1" maxlength="2000" placeholder="Ask a question about your books" disabled></textarea>
+        <button type="submit" id="ask-btn" disabled>Ask</button>
+      </form>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" hidden></div>
+  <script src="{% static 'rag/js/app.js' %}"></script>
+</body>
+</html>
